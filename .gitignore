@@ -162,5 +162,8 @@ cython_debug/
 # wandb
 .wandb/
 
-# Checkpoint
+# Checkpoints
 Checkpoints/
+
+# datasets
+datasets/
