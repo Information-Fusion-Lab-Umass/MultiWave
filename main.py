@@ -43,21 +43,31 @@ if __name__ == "__main__":
     parser.add_argument('--LR', help='learning rate', type=float, default=0.0001)
     parser.add_argument('--fold', help='The fold for running', type=int, default=1)
     args=parser.parse_args()
+
+    # Convert the hidden unit string into a list of integers.
     hs = args.hs
     hs = list(map(int, hs.replace("[","").replace("]","").split(', ')))
+    # Load the dataset for the specified fold from a pickle file.
     with open('datasets/WESAD/WESAD_data_fold' + str(args.fold) + '.pkl', 'rb') as f:
         (X_train, X_val, X_test, Y_train, Y_val, Y_test, times_train, times_val, times_test) = pickle.load(f)
     
+    # Convert the training, validation, and test input data into tensors.
     X_train = converttoTensor(X_train)
     X_val = converttoTensor(X_val)
     X_test = converttoTensor(X_test)
+
+    # Convert labels to tensors and extract class indices (assuming one-hot encoding).
     Y_train = torch.tensor(Y_train)
     Y_val = torch.tensor(Y_val)
     _, Y_train = Y_train.max(-1); _, Y_val = Y_val.max(-1)
     
+    # Determine whether to apply regularization.
     regularize = True
     if 'perchannel' in args.Comp:
+        # Disable regularization if the component type is 'perchannel'.
         regularize = False
+    
+    # Apply frequency grouping to the input data using wavelet decomposition.
     X_train_freq = getRNNFreqGroups_mr(X_train, times_train, maxlevels=len(hs)-2, imputation='forward', waveletType=args.WaveletType, regularize=regularize)
     X_val_freq = getRNNFreqGroups_mr(X_val, times_val, maxlevels=len(hs)-2, imputation='forward', waveletType=args.WaveletType, regularize=regularize)
     X_test_freq = getRNNFreqGroups_mr(X_test, times_test, maxlevels=len(hs)-2, imputation='forward', waveletType=args.WaveletType, regularize=regularize)
