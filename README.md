@@ -10,17 +10,17 @@ MultiWave implements multiresolution deep architectures for time series predicti
 
 ## Repository Structure
 
-- **MultiWave/main.py**: Entry point for training and evaluation. See [main.py](MultiWave/main.py).
+- **MultiWave/main.py**: Entry point for training and evaluation. See [main.py](main.py).
 - **MultiWave/DownloadProcessedWESADdata.py**: Script to download and extract the processed WESAD dataset.
 - **MultiWave/Models/**: Contains model definitions, fusion functions, and training routines:
-  - [`Fusions.py`](MultiWave/Models/Fusions.py)
-  - [`Routines.py`](MultiWave/Models/Routines.py)
+  - [`Fusions.py`](Models/Fusions.py)
+  - [`Routines.py`](Models/Routines.py)
   - Other model-specific classes and wrappers.
 - **MultiWave/utils/**: Provides utility functions for dataset handling, model training, loss computation, and wavelet transformations:
-  - [`Dataset.py`](MultiWave/utils/Dataset.py)
-  - [`ModelUtils.py`](MultiWave/utils/ModelUtils.py)
-  - [`pytorchtools.py`](MultiWave/utils/pytorchtools.py)
-  - [`WaveletUtils.py`](MultiWave/utils/WaveletUtils.py)
+  - [`Dataset.py`](utils/Dataset.py)
+  - [`ModelUtils.py`](utils/ModelUtils.py)
+  - [`pytorchtools.py`](utils/pytorchtools.py)
+  - [`WaveletUtils.py`](utils/WaveletUtils.py)
 
 ## Installation
 
